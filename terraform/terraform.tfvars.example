@@ -1,0 +1,26 @@
+# Variables del proyecto
+project_name = "data-project-3"
+
+# Variables de GCP
+gcp_project_id = "TU_PROYECTO_GCP"
+gcp_region = "europe-west1"
+gcp_zone = "europe-west1-b"
+
+# Variables de AWS
+aws_region = "eu-central-1"
+aws_availability_zones = ["eu-central-1a", "eu-central-1b"]
+
+# Variables de red
+vpc_cidr = "10.0.0.0/16"
+private_subnets_cidr = ["10.0.1.0/24", "10.0.2.0/24"]
+public_subnets_cidr = ["10.0.101.0/24", "10.0.102.0/24"]
+
+# Variables de base de datos
+db_name = "ecommerce"
+db_username = "ecommerceuser"
+db_password = "TU_CONTRASEÑA_SEGURA"
+db_instance_class = "db.t3.micro"
+
+# Variables de aplicación
+flask_app_port = 8080
+lambda_runtime = "python3.11"
