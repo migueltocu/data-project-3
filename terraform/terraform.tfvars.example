@@ -1,26 +1,36 @@
-# Variables del proyecto
+# ===========================================
+# TERRAFORM VARIABLES EXAMPLE
+# ===========================================
+# Copia este archivo como terraform.tfvars y rellena con tus valores reales
+
+# Configuración del proyecto
 project_name = "data-project-3"
 
-# Variables de GCP
-gcp_project_id = "TU_PROYECTO_GCP"
-gcp_region = "europe-west1"
-gcp_zone = "europe-west1-b"
+# Configuración AWS
+aws_region        = "eu-central-1"
+aws_account_id    = "YOUR_AWS_ACCOUNT_ID"
+db_name           = "ecommerce"
+db_username       = "ecommerceuser"
+db_password       = "YOUR_SECURE_DB_PASSWORD"  # Usa una contraseña fuerte
+datastream_username = "datastream"
+datastream_password = "YOUR_DATASTREAM_PASSWORD"  # Usa una contraseña fuerte
 
-# Variables de AWS
-aws_region = "eu-central-1"
-aws_availability_zones = ["eu-central-1a", "eu-central-1b"]
+# Configuración GCP
+gcp_project_id = "YOUR_GCP_PROJECT_ID"
+gcp_region     = "europe-west1"
 
-# Variables de red
-vpc_cidr = "10.0.0.0/16"
-private_subnets_cidr = ["10.0.1.0/24", "10.0.2.0/24"]
-public_subnets_cidr = ["10.0.101.0/24", "10.0.102.0/24"]
+# BigQuery
+bigquery_dataset_id       = "ecommerce_analytics"
+bigquery_dataset_location = "EU"
 
-# Variables de base de datos
-db_name = "ecommerce"
-db_username = "ecommerceuser"
-db_password = "TU_CONTRASEÑA_SEGURA"
-db_instance_class = "db.t3.micro"
+# Datastream
+datastream_display_name = "ecommerce-rds-to-bq"
 
-# Variables de aplicación
+# Flask App
 flask_app_port = 8080
-lambda_runtime = "python3.11"
+flask_app_image = "europe-west1-docker.pkg.dev/YOUR_GCP_PROJECT_ID/data-project-3-repo/data-project-3-flask-app:latest"
+
+# INSTRUCCIONES:
+# 1. Copia este archivo: cp terraform.tfvars.example terraform.tfvars
+# 2. Edita terraform.tfvars con tus valores reales
+# 3. NUNCA subas terraform.tfvars a Git (ya está en .gitignore)

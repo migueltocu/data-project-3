@@ -110,3 +110,40 @@ output "service_endpoints" {
     add_product  = aws_lambda_function_url.add_product.function_url
   }
 }
+
+# ========================================
+# OUTPUTS BIGQUERY Y DATASTREAM
+# ========================================
+
+# BigQuery Dataset
+output "bigquery_dataset_id" {
+  description = "ID del dataset de BigQuery"
+  value       = google_bigquery_dataset.ecommerce_analytics.dataset_id
+}
+
+output "bigquery_dataset_url" {
+  description = "URL del dataset de BigQuery en la consola"
+  value       = "https://console.cloud.google.com/bigquery?project=${var.gcp_project_id}&ws=!1m4!1m3!3m2!1s${var.gcp_project_id}!2s${google_bigquery_dataset.ecommerce_analytics.dataset_id}"
+}
+
+# Datastream
+output "datastream_id" {
+  description = "ID del stream de Datastream"
+  value       = google_datastream_stream.postgresql_to_bigquery.id
+}
+
+output "datastream_url" {
+  description = "URL del stream de Datastream en la consola"
+  value       = "https://console.cloud.google.com/datastream/streams/locations/${var.gcp_region}/instances/${google_datastream_stream.postgresql_to_bigquery.stream_id}?project=${var.gcp_project_id}"
+}
+
+# Analytics endpoints
+output "analytics_info" {
+  description = "Información de los servicios de analytics"
+  value = {
+    bigquery_dataset_id = google_bigquery_dataset.ecommerce_analytics.dataset_id
+    bigquery_project    = var.gcp_project_id
+    datastream_id       = google_datastream_stream.postgresql_to_bigquery.stream_id
+    looker_dashboard    = "https://lookerstudio.google.com (configurado manualmente)"
+  }
+}

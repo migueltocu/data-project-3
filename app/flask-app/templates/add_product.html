@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}Añadir Producto - Ecommerce{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h3 class="mb-0">
+                    <i class="fas fa-plus me-2"></i>
+                    Añadir Nuevo Producto
+                </h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('add_product') }}">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">
+                            <i class="fas fa-tag me-1"></i>
+                            Nombre del Producto *
+                        </label>
+                        <input type="text" 
+                               class="form-control" 
+                               id="name" 
+                               name="name" 
+                               required 
+                               placeholder="Introduce el nombre del producto"
+                               maxlength="100">
+                        <div class="form-text">Máximo 100 caracteres</div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="price" class="form-label">
+                            <i class="fas fa-euro-sign me-1"></i>
+                            Precio *
+                        </label>
+                        <div class="input-group">
+                            <span class="input-group-text">€</span>
+                            <input type="number" 
+                                   class="form-control" 
+                                   id="price" 
+                                   name="price" 
+                                   required 
+                                   step="0.01" 
+                                   min="0.01"
+                                   placeholder="0.00">
+                        </div>
+                        <div class="form-text">Precio en euros (ej: 19.99)</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="description" class="form-label">
+                            <i class="fas fa-align-left me-1"></i>
+                            Descripción
+                        </label>
+                        <textarea class="form-control" 
+                                  id="description" 
+                                  name="description" 
+                                  rows="4" 
+                                  placeholder="Describe las características del producto (opcional)"
+                                  maxlength="500"></textarea>
+                        <div class="form-text">Máximo 500 caracteres (opcional)</div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{{ url_for('index') }}" class="btn btn-outline-secondary btn-lg me-md-2">
+                            <i class="fas fa-arrow-left me-2"></i>
+                            Volver al Catálogo
+                        </a>
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="fas fa-save me-2"></i>
+                            Guardar Producto
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Información adicional -->
+        <div class="card mt-4">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Información
+                </h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled mb-0">
+                    <li><i class="fas fa-check text-success me-2"></i>Los productos se añaden automáticamente como disponibles</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Los datos se almacenan en PostgreSQL via AWS Lambda</li>
+                    <li><i class="fas fa-check text-success me-2"></i>Los campos marcados con * son obligatorios</li>
+                    <li><i class="fas fa-check text-success me-2"></i>El precio debe ser mayor que 0</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Validación del lado del cliente
+    document.getElementById('price').addEventListener('input', function(e) {
+        const value = parseFloat(e.target.value);
+        if (value <= 0) {
+            e.target.setCustomValidity('El precio debe ser mayor que 0');
+        } else {
+            e.target.setCustomValidity('');
+        }
+    });
+
+    // Contador de caracteres para descripción
+    document.getElementById('description').addEventListener('input', function(e) {
+        const maxLength = 500;
+        const currentLength = e.target.value.length;
+        const formText = e.target.nextElementSibling;
+        
+        if (currentLength > maxLength - 50) {
+            formText.innerHTML = `${currentLength}/${maxLength} caracteres`;
+            formText.className = 'form-text text-warning';
+        } else {
+            formText.innerHTML = 'Máximo 500 caracteres (opcional)';
+            formText.className = 'form-text';
+        }
+    });
+</script>
+{% endblock %}

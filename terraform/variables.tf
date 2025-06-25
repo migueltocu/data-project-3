@@ -56,6 +56,18 @@ variable "db_password" {
   sensitive   = true
 }
 
+variable "datastream_username" {
+  description = "Usuario específico para Datastream con permisos de replicación"
+  type        = string
+  default     = "datastream_user"
+}
+
+variable "datastream_password" {
+  description = "Contraseña para usuario de Datastream (definir en terraform.tfvars)"
+  type        = string
+  sensitive   = true
+}
+
 variable "db_instance_class" {
   description = "Tipo de instancia de RDS"
   type        = string
@@ -88,10 +100,35 @@ variable "flask_app_port" {
   default     = 8080
 }
 
+variable "flask_app_image" {
+  description = "Imagen Docker para la aplicación Flask"
+  type        = string
+  default     = "europe-west1-docker.pkg.dev/data-project-3-miguel/data-project-3-repo/data-project-3-flask-app:latest"
+}
+
 variable "lambda_runtime" {
   description = "Runtime para las funciones Lambda"
   type        = string
   default     = "python3.11"
+}
+
+# Variables para BigQuery y Datastream
+variable "bigquery_dataset_id" {
+  description = "ID del dataset de BigQuery"
+  type        = string
+  default     = "ecommerce_analytics"
+}
+
+variable "bigquery_dataset_location" {
+  description = "Ubicación del dataset de BigQuery"
+  type        = string
+  default     = "EU"
+}
+
+variable "datastream_display_name" {
+  description = "Nombre del stream de Datastream"
+  type        = string
+  default     = "ecommerce-rds-to-bq"
 }
 
 # Tags comunes
