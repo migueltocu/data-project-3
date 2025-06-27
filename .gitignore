@@ -7,7 +7,6 @@ terraform.tfvars
 *.tfplan
 *.zip
 terraform/lambda_temp.zip
-CLAUDE.md
 
 # AWS
 .aws/
