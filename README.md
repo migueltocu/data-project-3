@@ -82,6 +82,9 @@ Antes de comenzar, asegúrate de tener instalado y configurado:
 - [Google Cloud SDK](https://cloud.google.com/sdk/docs/install) configurado
 - [Docker](https://docs.docker.com/get-docker/) para construcción de imágenes
 - [Git](https://git-scm.com/downloads)
+- **PostgreSQL Client (psql)** para configuración de replicación:
+  - **Linux (Ubuntu/Debian)**: `sudo apt-get install postgresql-client`
+  - **Windows**: Descargar e instalar desde [postgresql.org](https://www.postgresql.org/download/windows/)
 
 ### Paso 1: Clonar el Repositorio
 
@@ -193,6 +196,10 @@ terraform apply
 
 # Confirmar con 'yes' cuando se solicite
 ```
+
+**⚠️ Nota importante**: Si el deployment falla con error `psql: command not found`, asegúrate de tener instalado el cliente PostgreSQL:
+- **Linux**: `sudo apt-get install postgresql-client`
+- **Windows**: Instalar desde [postgresql.org](https://www.postgresql.org/download/windows/) y añadir al PATH
 
 ### Paso 7: Verificar Deployment
 

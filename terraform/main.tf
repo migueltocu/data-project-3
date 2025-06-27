@@ -176,7 +176,6 @@ resource "aws_db_parameter_group" "postgres_logical_replication" {
 # 2. ✅ Usuario específico con permisos mínimos para replicación
 # 3. ✅ Contraseñas fuertes (>15 caracteres, símbolos especiales)
 # 4. ✅ Parameter groups configurados para logical replication
-# 5. ✅ Monitoreo habilitado con CloudWatch
 # NOTA: En producción considerar Cloud VPN o Cloud Interconnect
 
 # RDS Instance configurada para logical replication
