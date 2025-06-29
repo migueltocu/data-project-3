@@ -97,7 +97,7 @@ def lambda_handler(event, context):
         except Exception as e:
             print(f"Error conectando con IAM auth: {str(e)}")
             # Fallback: intentar con contraseña desde variables de entorno
-            db_password = os.environ.get('DB_PASSWORD')
+            db_password = os.environ.get('DB_PASSWORD') # No es una buena práctica que si el role no funcione se use la contraseña, ya que puede ser un escalado de privilegios
             if not db_password:
                 raise Exception("No se puede conectar con IAM ni con contraseña")
             
@@ -112,6 +112,7 @@ def lambda_handler(event, context):
         
         cursor = conn.cursor()
         
+        # Deberías tener una lambda como la de db-bootstrap que configure la base de datos y cree las tablas necesarias. Pero para un dp me parece bien que lo hagas aquí.
         # Crear tabla si no existe
         create_table_query = """
         CREATE TABLE IF NOT EXISTS products (

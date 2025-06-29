@@ -1,3 +1,5 @@
+# En este archivo debemos tener módulos reutilizables "modules" y no recursos directos.
+
 # ========================================
 # INFRAESTRUCTURA AWS
 # ========================================
@@ -212,7 +214,7 @@ resource "aws_db_instance" "main" {
   deletion_protection = false
 
   # IAM Authentication
-  iam_database_authentication_enabled = true
+  iam_database_authentication_enabled = true # Muy bien que hayas usado iam para autenticación
 
   tags = merge(var.common_tags, {
     Name = "${var.project_name}-db"
@@ -289,6 +291,7 @@ resource "aws_iam_role_policy" "lambda_rds_policy" {
 }
 
 # Archivos ZIP para funciones Lambda reales
+# AWS recomienda el uso de Imagenes en lugar de zips para gestionar código pero ambas son válidas
 data "archive_file" "get_products_zip" {
   type        = "zip"
   output_path = "${path.module}/get_products.zip"
@@ -462,7 +465,7 @@ resource "aws_lambda_function_url" "add_product" {
 # ========================================
 # INFRAESTRUCTURA GCP
 # ========================================
-
+# Las apis se suelen habilitar en un modulo de administrador separado, ya que el usuario que ejecuta el terraform no debe tener este nivel de privilegios.
 # Habilitar APIs necesarias
 resource "google_project_service" "services" {
   for_each = toset([
